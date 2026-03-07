@@ -24,7 +24,7 @@
 | **[i3xopc](#-i3xopc--opc-ua)** | Bridge OPC-UA address spaces to i3X context models | Desktop + Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 | **[i3xag](#-i3xag--aggregator)** | Merge multiple i3X servers into a single endpoint | Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 | **[i3xview](#-i3xview--graph-viewer)** | Interactive graph visualization of i3X object models | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://view.i3x.net) |
-| **[i3xdash](#-i3xdash--dashboards)** | Build interactive dashboards from i3X data | Desktop | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
+| **[i3xdash](#-i3xdash--dashboards)** | Build interactive dashboards from i3X data | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://dash.i3x.net) |
 | **[i3xmcp](#-i3xmcp--mcp-server)** | Expose any i3X API as tools for AI agents | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 | **[i3xrag](#-i3xrag--rag-enhanced-mcp)** | Natural language search over i3X object models | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 
@@ -231,7 +231,18 @@ Available as a [web app](https://view.i3x.net) (no install) or a desktop app.
 
 ### 📊 i3xdash — Dashboards
 
-Build interactive dashboards connected to i3X servers. Drag-and-drop widgets, live value displays, and customizable layouts.
+Connect to any i3X server, browse the full object hierarchy, and build live dashboards with configurable tiles. Four tile types — value, gauge, sparkline, and state timeline — all updating in real time.
+
+Available as a [web app](https://dash.i3x.net) (no install) or a desktop app.
+
+**Features:**
+
+- **Object browser** — navigate namespaces, types, and instances with filter/search
+- **Live value panel** — select any object to see current value, quality, and timestamp
+- **Four tile types** — value (single number), gauge (range arc), sparkline (trend line), timeline (discrete state bars)
+- **Drag & resize** — move tiles to any grid position, resize by dragging edges or corners
+- **Per-tile config** — units, decimals, thresholds, colors, Y-axis ranges, font size, and more
+- **Save & load** — persist dashboard layouts to JSON (desktop: native file dialog, web: download/upload)
 
 ---
 
