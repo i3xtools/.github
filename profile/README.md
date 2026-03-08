@@ -344,6 +344,7 @@ index_status       Show connection status, object/node/edge counts, index age
     }
   }
 }
+
 ```
 
 | Environment Variable | Default | Description |
