@@ -26,7 +26,7 @@
 | **[i3xview](#-i3xview--graph-viewer)** | Interactive graph visualization of i3X object models | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://view.i3x.net) |
 | **[i3xdash](#-i3xdash--dashboards)** | Build interactive dashboards from i3X data | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://dash.i3x.net) |
 | **[i3xmcp](#-i3xmcp--mcp-server)** | Expose any i3X API as tools for AI agents | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
-| **[i3xrag](#-i3xrag--rag-enhanced-mcp)** | Natural language search over i3X object models | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
+| **[i3xrag](#-i3xrag--rag--graph--mcp)** | Search, traverse, and analyze i3X object models with AI | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 
 </div>
 
@@ -286,19 +286,46 @@ Once configured, ask Claude to `connect` to any i3X server URL and start queryin
 
 ---
 
-### 🧠 i3xrag — RAG-Enhanced MCP
+### 🧠 i3xrag — RAG + Graph + MCP
 
-Everything i3xmcp does, plus a full-text search index. On connect, crawls the entire i3X object model and builds an in-memory BM25 index. Agents can search with natural language and get ranked results in milliseconds.
+Everything i3xmcp does, plus a BM25 search index and an in-memory graph database. On connect, crawls the entire i3X object model and builds both indexes. Agents can search with natural language, traverse relationships, find shortest paths, and aggregate data — all from a single crawl.
 
-**Additional tools:**
+**Search tools:**
 
 ```
-connect_and_index  Connect and crawl/index the entire model
-refresh_index      Re-crawl and rebuild the search index
-index_status       Show connection status, object count, index age
 search             BM25 full-text search (query, limit, type_filter)
 search_by_type     List or search objects within a type
 describe_model     Summary of all types with object counts
+search_related     Search + auto-traverse connected nodes in one call
+```
+
+**Graph tools:**
+
+```
+traverse           Walk N hops from a node, filter by edge/node type
+find_path          Shortest path between two nodes
+neighborhood       All nodes within N hops
+subtree_summary    Count objects by type under a parent
+ancestors          Walk up the hierarchy to root
+aggregate          Group objects by type or parent
+composition_tree   Nested parent-child hierarchy as a tree
+relationship_map   Type-level relationship summary (SourceType → RelType → TargetType)
+type_schema        Schema for a type: attributes, relationships, parent types
+```
+
+**Analysis tools:**
+
+```
+value_filter       Filter objects by value quality, missing values, or type
+stale_values       Find objects with values older than a threshold
+```
+
+**Management tools:**
+
+```
+connect_and_index  Connect and crawl/index the entire model
+refresh_index      Re-crawl and rebuild both indexes
+index_status       Show connection status, object/node/edge counts, index age
 ```
 
 **Claude Desktop configuration** (`claude_desktop_config.json`):
