@@ -71,6 +71,21 @@ i3xdb-server -c config.yaml --connection "snowflake://user:password@account/data
 | `--connection` | — | Database connection string |
 | `-p, --port` | 8080 | HTTP port to listen on |
 
+**Docker:**
+
+```bash
+# PostgreSQL
+docker run -p 8080:8080 \
+  -v ./config.yaml:/etc/i3xdb/config.yaml \
+  i3xtools/i3xdb-server --connection "postgres://user:pass@host:5432/db"
+
+# SQLite (mount the db folder)
+docker run -p 8080:8080 \
+  -v ./config.yaml:/etc/i3xdb/config.yaml \
+  -v ./data:/etc/i3xdb/db \
+  i3xtools/i3xdb-server --connection "sqlite:///etc/i3xdb/db/mydb.db"
+```
+
 ---
 
 ### ⚙️ i3xmt — Machine Tools
@@ -108,6 +123,18 @@ i3xmt-server --broker mqtts://broker:8883 --device OKUMA.123456 --username admin
 | `--password` | — | MQTT broker password |
 | `--tls-insecure` | false | Accept self-signed TLS certificates |
 
+**Docker:**
+
+```bash
+docker run -p 8080:8080 \
+  i3xtools/i3xmt-server --broker mqtt://192.168.1.100:1883 --device OKUMA.123456 --port 8080
+
+# With config file
+docker run -p 8080:8080 \
+  -v ./device-config.yaml:/etc/i3xmt/config.yaml \
+  i3xtools/i3xmt-server --broker mqtt://192.168.1.100:1883 --device OKUMA.123456 --config /etc/i3xmt/config.yaml --port 8080
+```
+
 ---
 
 ### 📄 i3xcsv — Files
@@ -133,6 +160,15 @@ i3xcsv-server -c config.json -p 3000
 |------|---------|-------------|
 | `-c, --config` | — | YAML/JSON config exported from the desktop app (includes file paths and mappings) |
 | `-p, --port` | 8080 | HTTP port to listen on |
+
+**Docker:**
+
+```bash
+docker run -p 8080:8080 \
+  -v ./config.yaml:/etc/i3xcsv/config.yaml \
+  -v ./data:/etc/i3xcsv/data \
+  i3xtools/i3xcsv-server
+```
 
 ---
 
@@ -216,6 +252,19 @@ reparent:
 | `parentId` | The new parent to assign (from any upstream server) |
 
 This is how you build a unified plant model from separate data sources — databases provide the organizational structure, device adapters provide the live telemetry, and i3xag merges them into one API with a single hierarchy.
+
+**Docker:**
+
+```bash
+# Inline upstreams
+docker run -p 9000:9000 \
+  i3xtools/i3xag-server --upstream db=http://host.docker.internal:8080 --upstream mt=http://host.docker.internal:8081 --port 9000
+
+# With config file
+docker run -p 9000:9000 \
+  -v ./config.yaml:/etc/i3xag/config.yaml \
+  i3xtools/i3xag-server -c /etc/i3xag/config.yaml
+```
 
 ---
 
