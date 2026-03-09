@@ -25,8 +25,7 @@
 | **[i3xag](#-i3xag--aggregator)** | Merge multiple i3X servers into a single endpoint | Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 | **[i3xview](#-i3xview--graph-viewer)** | Interactive graph visualization of i3X object models | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://view.i3x.net) |
 | **[i3xdash](#-i3xdash--dashboards)** | Build interactive dashboards from i3X data | Desktop + Web | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) · [Web App](https://dash.i3x.net) |
-| **[i3xmcp](#-i3xmcp--mcp-server)** | Expose any i3X API as tools for AI agents | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
-| **[i3xrag](#-i3xrag--rag--graph--mcp)** | Search, traverse, and analyze i3X object models with AI | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
+| **[i3xrag](#-i3xrag--rag--graph--mcp)** | MCP server with search, graph traversal, and live queries for i3X models | MCP Server | [Releases](https://github.com/i3xtools/.releases/releases/tag/latest) |
 
 </div>
 
@@ -297,47 +296,9 @@ Available as a [web app](https://dash.i3x.net) (no install) or a desktop app.
 
 ## AI Integration
 
-### 🤖 i3xmcp — MCP Server
-
-[MCP (Model Context Protocol)](https://modelcontextprotocol.io) server that exposes any i3X API as callable tools for AI agents. Runs over stdio — no CLI arguments needed.
-
-**Tools exposed:**
-
-```
-connect           Connect to an i3X server URL
-disconnect        Disconnect from the server
-list_namespaces   List available namespaces
-list_object_types List object types
-list_objects      List object instances, filter by type
-get_object        Fetch a single object by element ID
-get_value         Read live value, quality, timestamp
-get_values_bulk   Read values for multiple objects
-get_related       Navigate relationships from an object
-search_objects    Find objects by display name
-```
-
-**Claude Desktop configuration** (`claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "i3xmcp": {
-      "command": "C:/path/to/i3xmcp.exe",
-      "env": {
-        "RUST_LOG": "info"
-      }
-    }
-  }
-}
-```
-
-Once configured, ask Claude to `connect` to any i3X server URL and start querying.
-
----
-
 ### 🧠 i3xrag — RAG + Graph + MCP
 
-Everything i3xmcp does, plus a BM25 search index and an in-memory graph database. On connect, crawls the entire i3X object model and builds both indexes. Agents can search with natural language, traverse relationships, find shortest paths, and aggregate data — all from a single crawl.
+[MCP (Model Context Protocol)](https://modelcontextprotocol.io) server that gives AI agents full access to any i3X API — live queries, BM25 search, and an in-memory graph database. On connect, crawls the entire i3X object model and builds both indexes. Agents can browse objects, read live values, search with natural language, traverse relationships, find shortest paths, and aggregate data — all from a single crawl.
 
 **Search tools:**
 
