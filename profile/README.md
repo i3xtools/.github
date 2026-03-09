@@ -328,6 +328,7 @@ type_schema        Schema for a type: attributes, relationships, parent types
 ```
 value_filter       Filter objects by value quality, missing values, or type
 stale_values       Find objects with values older than a threshold
+get_history        Historical values with optional time range filter
 ```
 
 **Management tools:**
