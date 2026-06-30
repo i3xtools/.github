@@ -335,7 +335,7 @@ get_history        Historical values with optional time range filter
 
 ```
 list_servers       Show configured server names (from I3XRAG_SERVERS env)
-connect_and_index  Connect by name or URL (optional Basic/Bearer auth), crawl/index the entire model
+connect_and_index  Connect by name or URL (optional Basic/Bearer auth, self-signed TLS), crawl/index the entire model
 refresh_index      Re-crawl and rebuild both indexes
 index_status       Show connection status, object/node/edge counts, index age
 ```
@@ -351,7 +351,8 @@ index_status       Show connection status, object/node/edge counts, index age
         "RUST_LOG": "i3xrag=info",
         "I3XRAG_LOG_DIR": "C:/logs",
         "I3XRAG_SERVERS": "ERP=http://localhost:8080,SCADA=http://localhost:8081",
-        "I3XRAG_AUTH": "ERP=bearer:<token>,SCADA=basic:<user>:<pass>"
+        "I3XRAG_AUTH": "ERP=bearer:<token>,SCADA=basic:<user>:<pass>",
+        "I3XRAG_INSECURE_TLS": "false"
       }
     }
   }
@@ -365,8 +366,9 @@ index_status       Show connection status, object/node/edge counts, index age
 | `I3XRAG_LOG_DIR` | system temp | Directory for `i3xrag.log` file |
 | `I3XRAG_SERVERS` | — | Named servers as `Name=URL` pairs, comma-separated |
 | `I3XRAG_AUTH` | — | Per-server HTTPS auth as `Name=spec` pairs, where spec is `none`, `bearer:<token>`, or `basic:<user>:<pass>` |
+| `I3XRAG_INSECURE_TLS` | `false` | Accept self-signed / invalid TLS certs by default (`true`/`1`/`yes`/`on`) |
 
-Once configured, ask Claude to `list_servers` to see available servers, then `connect_and_index` by name (e.g. "ERP") to start exploring. For servers behind HTTPS auth, set `I3XRAG_AUTH`, or pass a `token` / `username`+`password` directly to `connect_and_index` ("connect to ERP with this token").
+Once configured, ask Claude to `list_servers` to see available servers, then `connect_and_index` by name (e.g. "ERP") to start exploring. For servers behind HTTPS auth, set `I3XRAG_AUTH`, or pass a `token` / `username`+`password` directly to `connect_and_index` ("connect to ERP with this token"). For a server with a self-signed certificate, set `I3XRAG_INSECURE_TLS=true` or pass `accept_invalid_certs: true` to `connect_and_index`.
 
 ---
 
