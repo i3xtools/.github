@@ -335,7 +335,7 @@ get_history        Historical values with optional time range filter
 
 ```
 list_servers       Show configured server names (from I3XRAG_SERVERS env)
-connect_and_index  Connect by name or URL, crawl/index the entire model
+connect_and_index  Connect by name or URL (optional Basic/Bearer auth), crawl/index the entire model
 refresh_index      Re-crawl and rebuild both indexes
 index_status       Show connection status, object/node/edge counts, index age
 ```
@@ -350,7 +350,8 @@ index_status       Show connection status, object/node/edge counts, index age
       "env": {
         "RUST_LOG": "i3xrag=info",
         "I3XRAG_LOG_DIR": "C:/logs",
-        "I3XRAG_SERVERS": "ERP=http://localhost:8080,SCADA=http://localhost:8081"
+        "I3XRAG_SERVERS": "ERP=http://localhost:8080,SCADA=http://localhost:8081",
+        "I3XRAG_AUTH": "ERP=bearer:<token>,SCADA=basic:<user>:<pass>"
       }
     }
   }
@@ -363,8 +364,9 @@ index_status       Show connection status, object/node/edge counts, index age
 | `RUST_LOG` | — | Log level (`info`, `debug`, `i3xrag=debug`) |
 | `I3XRAG_LOG_DIR` | system temp | Directory for `i3xrag.log` file |
 | `I3XRAG_SERVERS` | — | Named servers as `Name=URL` pairs, comma-separated |
+| `I3XRAG_AUTH` | — | Per-server HTTPS auth as `Name=spec` pairs, where spec is `none`, `bearer:<token>`, or `basic:<user>:<pass>` |
 
-Once configured, ask Claude to `list_servers` to see available servers, then `connect_and_index` by name (e.g. "ERP") to start exploring.
+Once configured, ask Claude to `list_servers` to see available servers, then `connect_and_index` by name (e.g. "ERP") to start exploring. For servers behind HTTPS auth, set `I3XRAG_AUTH`, or pass a `token` / `username`+`password` directly to `connect_and_index` ("connect to ERP with this token").
 
 ---
 
